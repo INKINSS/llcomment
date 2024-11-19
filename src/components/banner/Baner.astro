@@ -1,0 +1,24 @@
+---
+import LayoutSection from "../../layouts/LayoutSection.astro";
+import Discover from "../common/buttons/Discover.astro";
+import Collaborate from "../common/buttons/Collaborate.astro";
+---
+
+<LayoutSection title="llcomment">
+  <section class="flex flex-col items-center mt-10">
+    <h1 class="text-center text-primary ssm:text-[3rem] font-bold">
+      llcomment
+    </h1>
+    <p class="text-center prose sm:prose-base md:prose-xl">
+      Descubre un espacio dinámico y creativo <strong>dedicado al desarrollo web</strong> , donde
+      encontrarás conocimientos actualizados sobre programación y diseño. Este
+      sitio está diseñado para apasionados como tú, que buscan aprender, crecer
+      y compartir su experiencia en temas como desarrollo front-end, back-end,
+      diseño UI/UX, y <strong>las últimas tendencias en tecnología web.</strong> 
+    </p>
+    <div class="flex gap-7 mt-7">
+      <Discover />
+      <Collaborate />
+    </div>
+  </section>
+</LayoutSection>
