@@ -5,10 +5,15 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				primary: 'rgb(14,39,47)'
+				primary: 'rgb(14,39,47)',
+				grayPrimary:'rgb(103,103,103)',
+				purplePrimary: 'rgb(43,14,47)',
+			},
+			screens : {
+				'ssm': '380px',
 			}
 		},
 	},
 	darkMode: 'class',
-	plugins: [nextui()],
+	plugins: [nextui(), require('@tailwindcss/typography'),],
 }
