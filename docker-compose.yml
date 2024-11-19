@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  astro-app:
+    build: .
+    container_name: app
+    ports:
+      - "4321:4321"
+    image: astro
+  
+  astro-db:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "8000:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: llcomment
+      MONGO_INITDB_ROOT_PASSWORD: llcomment123
