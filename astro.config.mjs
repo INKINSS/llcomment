@@ -7,9 +7,11 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
+  devToolbar: {enabled: false},
   integrations: [tailwind(), react()],
   server: {
     host: true,
-    port: 4321
+    port: 4321,
   }
-});
+}
+);
