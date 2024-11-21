@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/header/Header";
 import "../styles/global.css";
 import Baner from "../components/banner/Baner.astro";
 import Collaborate from "../components/section/Collaborate.astro";
@@ -10,7 +9,6 @@ import FooterGitHub from "../components/footer/FooterGitHub.astro";
 
 <Layout title="llcomment">
   <main class="ssm:wfull md:w-[80%] flex flex-col items-center mx-auto">
-    <Header client:visible />
     <Baner />
     <Collaborate />
     <Discover />
