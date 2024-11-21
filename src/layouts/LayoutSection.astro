@@ -16,4 +16,12 @@ const { title } = Astro.props;
   <body class="ssm:px-9">
     <slot />
   </body>
+  <style is:global>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "League Spartan", sans-serif;
+    }
+  </style>
 </html>
