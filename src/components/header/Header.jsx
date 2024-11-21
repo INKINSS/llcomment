@@ -23,7 +23,11 @@ export default function App() {
   ];
 
   return (
-    <Navbar className="w-full" shouldHideOnScroll  onMenuOpenChange={setIsMenuOpen}>
+    <Navbar
+      className="w-full"
+      shouldHideOnScroll
+      onMenuOpenChange={setIsMenuOpen}
+    >
       <NavbarContent className="flex justify-between">
         <NavbarBrand>
           <p className="font-bold text-inhert text-primary text-[1.5rem]">
@@ -38,7 +42,7 @@ export default function App() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link className="text-[1.1rem] tracking-widest" href="#">
+          <Link className="text-[1.1rem] tracking-widest" href="/">
             inicio
           </Link>
         </NavbarItem>
@@ -46,7 +50,7 @@ export default function App() {
           <Link
             className="text-[1.1rem] tracking-widest"
             color="foreground"
-            href="#"
+            href="/collaborate"
             aria-current="page"
           >
             colabora
@@ -56,7 +60,7 @@ export default function App() {
           <Link
             className="text-[1.1rem] tracking-widest"
             color="foreground"
-            href="#"
+            href="/discover"
           >
             descubre
           </Link>
