@@ -1,17 +1,20 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://firebase.google.com/docs/web/learn-more#config-object
 const firebaseConfig = {
-  // ...
-  // The value of `databaseURL` depends on the location of the database
-  databaseURL: "https://DATABASE_NAME.firebaseio.com",
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "https://llcomment-default-rtdb.firebaseio.com/",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
-// Initialize Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 
+// Obtener la instancia de la base de datos
+const database = getDatabase(app);
 
-// Initialize Realtime Database and get a reference to the service
-export const database = getDatabase(app);
+export { database };
