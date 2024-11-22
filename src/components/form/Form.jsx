@@ -9,10 +9,14 @@ const Form = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    submitForm(data);
+  const onSubmit = async (data) => {
+    const result = await submitForm(data);
+    if (result) {
+      reset();
+    }
   };
 
   return (
@@ -89,7 +93,7 @@ const Form = () => {
       />
       <input
         type="submit"
-        defaultValue={"enviar"}
+        value={"enviar"}
         className="bg-primary text-white py-2 my-5 rounded-lg text-center cursor-pointer hover:bg-purplePrimary transition duration-200"
       />
     </form>
