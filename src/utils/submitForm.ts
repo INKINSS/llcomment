@@ -14,11 +14,10 @@ const formatDate = (date: Date) => {
   return moment(date).format('LL');
 };
 
-const extractFirstHeading = (content: string) => {
-  const match = content.match(/^# (.*$)/m);
-  return match ? match[1].toLowerCase().replace(/ /g, '-') : 'untitled' + crypto.randomUUID();
+//reemplazar espacios en blanco por guiones en el campo de titulo
+const titleAlter = (title: string) => {
+  return title.replace(/\s+/g, '-').toLowerCase();
 };
-
 
 export const submitForm = async (formData) => {
   try {
@@ -36,7 +35,7 @@ export const submitForm = async (formData) => {
     // Formatear la fecha para que no contenga caracteres no permitidos
     parsedData.publishDate = formatDate(parsedData.publishDate);
     // Guardar los datos en Firebase
-    const formRef = ref(database, 'posts/'+extractFirstHeading(parsedData.content));
+    const formRef = ref(database, 'posts/' + titleAlter(parsedData.title));
     await set(formRef, parsedData);
     console.log('Data saved successfully');
     return true;

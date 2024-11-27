@@ -2,17 +2,12 @@ import { useForm } from "react-hook-form";
 import { submitForm } from "../../utils/submitForm";
 import { Editor } from "@toast-ui/react-editor";
 import { useEffect, useRef } from "react";
+import {Input} from "@nextui-org/react";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import './styles.css'
+import "./styles.css";
 
 const Form = () => {
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-  } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   const editorRef = useRef(null);
 
   useEffect(() => {
@@ -22,9 +17,10 @@ const Form = () => {
   const onSubmit = async (data) => {
     const content = editorRef.current.getInstance().getMarkdown();
     setValue("content", content);
-    const result = await submitForm({...data, content});
+    const result = await submitForm({ ...data, content });
     if (result) {
       reset();
+      editorRef.current.getInstance().setMarkdown("");
     }
   };
 
@@ -33,6 +29,10 @@ const Form = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col ssm:w-full md:w-[70%] ssm:px-9 md:px-12 py-8 rounded-lg prose lg:prose-xl md:prose-xl"
     >
+      <h3 className="ssm:my-1 text-[.5rem] font-bold">titulo principal</h3>
+      <Input className="ssm:my-2" size="lg" type="text" {...register('title')} placeholder="ej: herrramientas que usan javascript" />
+      <h3 className="ssm:my-1 text-[.5rem] font-bold">etiquetas</h3>
+      <Input className="ssm:my-2 ssm:mb-6" size="lg"{...register('tags')} type="text" placeholder="ej: javascript, react, node" />
       <Editor
         ref={editorRef}
         previewStyle="tab"
