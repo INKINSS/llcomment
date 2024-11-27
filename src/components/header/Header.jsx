@@ -15,11 +15,11 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    "inicio",
-    "colabora",
-    "descubre",
-    "repositorio",
-    "contacto",
+    {label: "inicio", href: "/"},
+    {label: "colabora", href: "/collaborate"},
+    {label: "descubre", href: "/discover"},
+    {label: "repositorio", href: "https://github.com/INKINSS/llcomment", target: "_blank"},
+    {label: "contacto", href: "/contact"},
   ];
 
   return (
@@ -69,7 +69,8 @@ export default function App() {
           <Link
             className="text-[1.1rem] tracking-widest"
             color="foreground"
-            href="#"
+            href="https://github.com/INKINSS/llcomment"
+            target="_blank"
           >
             repositorio
           </Link>
@@ -78,7 +79,7 @@ export default function App() {
           <Link
             className="text-[1.1rem] tracking-widest"
             color="foreground"
-            href="#"
+            href="/contact"
           >
             contacto
           </Link>
@@ -86,7 +87,7 @@ export default function App() {
       </NavbarContent>
       <NavbarMenu>
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+          <NavbarMenuItem key={index}>
             <Link
               color={
                 index === 2
@@ -96,10 +97,10 @@ export default function App() {
                   : "foreground"
               }
               className="w-full tracking-widest"
-              href="#"
+              href={item.href}
               size="lg"
             >
-              {item}
+              {item.label}
             </Link>
           </NavbarMenuItem>
         ))}
