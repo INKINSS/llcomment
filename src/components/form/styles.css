@@ -1,0 +1,21 @@
+/* Aumentar el tamaño de la fuente del contenido del editor */
+.tox .tox-editor-container .tox-editor-header {
+    font-size: 16px; /* Ajusta este valor según tus necesidades */
+  }
+  
+  .tox .tox-editor-container .tox-editor-content {
+    font-size: 16px; /* Ajusta este valor según tus necesidades */
+  }
+  
+  /* Aumentar el tamaño de la fuente de la barra de herramientas */
+  .tox .tox-toolbar__group {
+    font-size: 32px; /* Ajusta este valor según tus necesidades */
+  }
+
+  .ProseMirror {
+    font-size: 1.4rem; /* Ajusta este valor según tus necesidades */
+  }
+
+  .toastui-editor-md-heading, .toastui-editor-md-heading1 {
+    font-size: 1.9rem; /* Ajusta este valor según tus necesidades */
+  }
