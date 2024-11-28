@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LayoutSection from "../layouts/LayoutSection.astro";
+import ItemsSearch from "../components/section/ItemsSearch.tsx";
+import "../styles/global.css";
+---
+
+<Layout title="collaborate || collaborate">
+  <LayoutSection title="collaborate">
+    <div class="flex flex-col items-center pb-10">
+      <h3 class="text-center text-primary ssm:text-[3rem] font-bold">
+        descubre
+      </h3>
+      <ItemsSearch client:visible />
+    </div>
+  </LayoutSection>
+  <style is:global>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "League Spartan", sans-serif;
+    }
+  </style>
+</Layout>
