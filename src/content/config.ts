@@ -6,7 +6,7 @@ const blogCollection = defineCollection({
         id: z.string().uuid().default(() => crypto.randomUUID()),
         publishDate: z.date().default(() => new Date()),
         title: z.string(),
-        tags: z.string(),
+        tags: z.array(z.string()),
         content: z.string(),
     }),
 });
