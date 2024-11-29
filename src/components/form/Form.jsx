@@ -29,6 +29,10 @@ const Form = () => {
       ? data.tags.split(" ").map((tag) => tag.trim()) // Dividir por espacios y eliminar espacios
       : [];
 
+    if(!data.nickname) {
+      data.nickname = "Anónimo";
+    }
+
     // Enviar datos al backend
     const result = await submitForm({ ...data, content, tags: tagsArray });
     if (result) {
@@ -42,7 +46,7 @@ const Form = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col ssm:w-full md:w-[70%] ssm:px-9 md:px-12 py-8 rounded-lg prose lg:prose-xl md:prose-xl"
     >
-      <h3 className="ssm:my-1 text-[.5rem] font-bold">Titulo Principal</h3>
+      <h3 className="ssm:my-1 text-[1.5rem] font-semibold">titulo principal</h3>
       <Input
         className="ssm:my-2"
         size="lg"
@@ -59,7 +63,20 @@ const Form = () => {
       {errors.title && (
         <span className="text-red-500">{errors.title.message}</span>
       )}
-      <h3 className="ssm:my-1 text-[.5rem] font-bold">Etiquetas</h3>
+      <h3 className="ssm:my-1 text-[1.5rem] font-semibold">nickname</h3>
+      <Input
+        className="ssm:my-2"
+        size="lg"
+        type="text"
+        {...register("nickname", {
+          maxLength: {
+            value: 15,
+            message: "el nickname no puede ser mayor a 15 caracteres",
+          },
+        })}
+        placeholder="ej: _dev01"
+      />
+      <h3 className="ssm:my-1 text-[1.5rem] font-semibold">etiquetas</h3>
       <Input
         className="ssm:my-2 ssm:mb-6"
         size="lg"
@@ -67,7 +84,8 @@ const Form = () => {
         {...register("tags", {
           validate: {
             maxWords: (value) =>
-              value.split(" ").length <= 3 || "Máximo 3 palabras separadas por espacios",
+              value.split(" ").length <= 3 ||
+              "Máximo 3 palabras separadas por espacios",
           },
         })}
         placeholder="ej: javascript react node"

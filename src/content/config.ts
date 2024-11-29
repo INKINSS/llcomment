@@ -4,10 +4,11 @@ const blogCollection = defineCollection({
     type: 'content',
     schema: z.object({
         id: z.string().uuid().default(() => crypto.randomUUID()),
-        publishDate: z.date().default(() => new Date()),
         title: z.string(),
+        nickname: z.string().optional(),
         tags: z.array(z.string()),
         content: z.string(),
+        publishDate: z.date().default(() => new Date()),
     }),
 });
 
