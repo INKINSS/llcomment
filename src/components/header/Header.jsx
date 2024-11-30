@@ -30,9 +30,9 @@ export default function App() {
     >
       <NavbarContent className="flex justify-between">
         <NavbarBrand>
-          <p className="font-bold text-inhert text-primary text-[1.5rem]">
+          <a className="inline-block font-bold text-inhert text-primary text-[1.5rem]" href="/">
             llco
-          </p>
+          </a>
         </NavbarBrand>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
