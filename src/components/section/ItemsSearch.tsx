@@ -47,10 +47,11 @@ const ItemsSearch = () => {
   return (
     <main className='ssm:w-full flex flex-col items-center'>
       <InputSearch onChange={handleSearchChange} />
-      <section className='flex flex-wrap ssm:w-full lg:w-[80%] px-4 mt-10 justify-evenly rounded-lg ssm:flex-col md:flex-row ssm:items-center hover'>
+      <section className='flex flex-wrap ssm:w-full px-4 mt-10 justify-evenly rounded-lg ssm:flex-col md:flex-row ssm:items-center hover'>
         {loading ? (
-          <SkeletonPage />
-        ) : filteredData.length > 0 ? (
+          <SkeletonPage count={data.length || 6} />
+        ) : 
+        filteredData.length > 0 ? (
           filteredData.map((item) => (
             <article className='ssm:w-[20rem] sm:w-[23rem] min-h-[13rem] py-4 px-8 my-4 shadow-custom rounded-md relative hover:scale-105 transform duration-200 cursor-pointer' key={item.id}>
               <h3 className='ssm:text-[1.2rem] sm:text-[1.4rem] font-semibold line-clamp-1'>{item.title}</h3>
