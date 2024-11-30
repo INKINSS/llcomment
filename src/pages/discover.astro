@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import LayoutSection from "../layouts/LayoutSection.astro";
 import ItemsSearch from "../components/section/ItemsSearch.tsx";
+import { BackPage } from '../components/common/buttons/BackPage'
 import "../styles/global.css";
 ---
 
@@ -13,6 +14,7 @@ import "../styles/global.css";
       </h3>
       <ItemsSearch client:visible />
     </div>
+    <BackPage client:visible />
   </LayoutSection>
   <style is:global>
     * {
