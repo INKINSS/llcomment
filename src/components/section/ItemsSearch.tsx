@@ -53,24 +53,26 @@ const ItemsSearch = () => {
         ) : 
         filteredData.length > 0 ? (
           filteredData.map((item) => (
-            <article className='ssm:w-[20rem] sm:w-[23rem] min-h-[13rem] py-4 px-8 my-4 shadow-custom rounded-md relative hover:scale-105 transform duration-200 cursor-pointer' key={item.id}>
-              <h3 className='ssm:text-[1.2rem] sm:text-[1.4rem] font-semibold line-clamp-1'>{item.title}</h3>
-              <p className='text-gray-900 line-clamp-2'>{item.content}</p>
-              <div className='my-3 flex flex-wrap'>
-                {item.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className='ssm:text-[.8rem] ssm:my-1 sm:my-0 sm:text-[.9rem] ssm:px-2 ssm:py-1 sm:px-3 sm:py-1 bg-gray-200 text-gray-700 rounded-full mr-2'
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className='flex justify-between'>
-                <span className='inline-block mt-3 ssm:text-[.8rem] md:text-[.9rem] text-grayPrimary bottom-5'>{item.nickname}</span>
-                <span className='inline-block mt-3 ssm:text-[.8rem] md:text-[.9rem] text-grayPrimary bottom-5'>{item.publishDate}</span>
-              </div>
-            </article>
+            <a href={`posts/${item.id}`} key={item.id}>
+              <article className='ssm:w-[20rem] sm:w-[23rem] min-h-[13rem] py-4 px-8 my-4 shadow-custom rounded-md relative hover:scale-105 transform duration-200 cursor-pointer'>
+                <h3 className='ssm:text-[1.2rem] sm:text-[1.4rem] font-semibold line-clamp-1'>{item.title}</h3>
+                <p className='text-gray-900 line-clamp-2'>{item.content}</p>
+                <div className='my-3 flex flex-wrap'>
+                  {item.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className='ssm:text-[.8rem] ssm:my-1 sm:my-0 sm:text-[.9rem] ssm:px-2 ssm:py-1 sm:px-3 sm:py-1 bg-gray-200 text-gray-700 rounded-full mr-2'
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className='flex justify-between'>
+                  <span className='inline-block mt-3 ssm:text-[.8rem] md:text-[.9rem] text-grayPrimary bottom-5'>{item.nickname}</span>
+                  <span className='inline-block mt-3 ssm:text-[.8rem] md:text-[.9rem] text-grayPrimary bottom-5'>{item.publishDate}</span>
+                </div>
+              </article>
+            </a>
           ))
         ) : (
           <p>No results found</p>
