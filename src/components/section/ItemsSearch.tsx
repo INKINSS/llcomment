@@ -21,6 +21,14 @@ const ItemsSearch = () => {
     setSearchTerm(e.target.value);
   };
 
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '');
+  }
+
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -53,7 +61,7 @@ const ItemsSearch = () => {
         ) : 
         filteredData.length > 0 ? (
           filteredData.map((item) => (
-            <a href={`posts/${item.id}`} key={item.id}>
+            <a href={`/posts/${generateSlug(item.title)}`} key={item.id}>
               <article className='ssm:w-[20rem] sm:w-[23rem] min-h-[13rem] py-4 px-8 my-4 shadow-custom rounded-md relative hover:scale-105 transform duration-200 cursor-pointer'>
                 <h3 className='ssm:text-[1.2rem] sm:text-[1.4rem] font-semibold line-clamp-1'>{item.title}</h3>
                 <p className='text-gray-900 line-clamp-2'>{item.content}</p>
