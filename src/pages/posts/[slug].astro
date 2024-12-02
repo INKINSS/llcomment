@@ -1,11 +1,19 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { fetchData } from "../../utils/fetchData";
-import { marked } from "marked"; // Importa la librería para procesar Markdown
+import { marked } from "marked";
 import "../../styles/global.css";
-import { BackPage } from "../../components/common/buttons/BackPage";
+import { BackDiscover } from "../../components/common/buttons/BackDiscover";
 
-// Generar rutas dinámicas
+
+export const generateSlug = (title) => {
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
+};
+
 export async function getStaticPaths() {
   const data = await fetchData("posts");
   if (!Array.isArray(data)) {
@@ -13,21 +21,21 @@ export async function getStaticPaths() {
   }
 
   const paths = data.map((post) => ({
-    params: { id: post.id },
+    params: { slug: generateSlug(post.title) },
   }));
 
   return paths;
 }
 
 // Obtener el parámetro dinámico `id`
-const { id } = Astro.params;
+const { slug } = Astro.params;
 
 // Fetch de todos los posts
 const data = await fetchData("posts");
-const post = data.find((item) => item.id === id);
+const post = data.find((item) => generateSlug(item.title) === slug);
 
 if (!post) {
-  throw new Error(`Post con ID ${id} no encontrado.`);
+  throw new Error(`Post con ID ${slug} no encontrado.`);
 }
 
 // Convierte el contenido de Markdown a HTML
@@ -46,7 +54,7 @@ const contentHTML = marked(post.content);
     </div>
     <!-- Renderiza el contenido convertido a HTML -->
     <div class="my-10 min-w-[60%] prose px-10 ssm:prose-sm md:prose-base" set:html={contentHTML}></div>
-    <BackPage />
+    <BackDiscover />
   </article>
 
   <style is:global>
