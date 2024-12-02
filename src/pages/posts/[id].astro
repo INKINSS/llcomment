@@ -1,18 +1,17 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { fetchData } from "../../utils/fetchData";
+import { marked } from "marked"; // Importa la librería para procesar Markdown
 import "../../styles/global.css";
 import { BackPage } from "../../components/common/buttons/BackPage";
 
 // Generar rutas dinámicas
 export async function getStaticPaths() {
-  // Fetch los datos desde Firebase
-  const data = await fetchData("posts"); // Ajusta si `posts` es el path correcto
+  const data = await fetchData("posts");
   if (!Array.isArray(data)) {
     throw new Error("La data de Firebase no es un array.");
   }
 
-  // Mapear cada post a un objeto con `params`
   const paths = data.map((post) => ({
     params: { id: post.id },
   }));
@@ -30,19 +29,23 @@ const post = data.find((item) => item.id === id);
 if (!post) {
   throw new Error(`Post con ID ${id} no encontrado.`);
 }
+
+// Convierte el contenido de Markdown a HTML
+const contentHTML = marked(post.content);
 ---
 
 <!-- Renderizar el contenido del post -->
 <Layout title={`llcomment || ${post.title}`}>
   <article class="flex mt-16 flex-col items-center">
-    <h1 class="ssm:text-[1.2rem] sm:text-[2rem] font-bold">{post.title}</h1>
+    <h1 class="ssm:text-[1.8rem] text-center sm:text-[2rem] font-bold">{post.title}</h1>
     <div class="space-x-2">
       <span class="font-semibold">{post.publishDate}</span>
       <span class="font-semibold">
         {post.nickname}
       </span>
     </div>
-    <p class="mt-5 mb-10 prose ssm:prose-sm ssm:px-10 sm:prose-lg md:prose-xl">{post.content}</p>
+    <!-- Renderiza el contenido convertido a HTML -->
+    <div class="my-10 min-w-[60%] prose px-10 ssm:prose-sm md:prose-base" set:html={contentHTML}></div>
     <BackPage />
   </article>
 
@@ -52,6 +55,23 @@ if (!post) {
       padding: 0;
       box-sizing: border-box;
       font-family: "League Spartan", sans-serif;
+    }
+
+    .prose p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .prose li {
+      font-size: 1.2rem;
+    }
+
+    .prose h1{
+      margin: 15px 0;
+    }
+
+    .prose h2 {
+      margin: 5px 0;
     }
   </style>
 </Layout>
