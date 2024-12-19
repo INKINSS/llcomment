@@ -24,10 +24,7 @@ export async function getStaticPaths() {
     params: { slug: generateSlug(post.title) },
   }));
 
-  return {
-    paths,
-    fallback: false,
-  };
+  return paths;
 }
 
 // Obtener el parámetro dinámico `id`
