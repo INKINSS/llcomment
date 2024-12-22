@@ -10,7 +10,7 @@ import {
 
 const ModalSuccess = ({ visible, onClose, onViewPost, postSlug }) => {
   return (
-    <Modal isOpen={visible} onClose={onClose}>
+    <Modal isOpen={visible} onOpenChange={onClose}>
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">Publicación Exitosa</ModalHeader>
         <ModalBody>

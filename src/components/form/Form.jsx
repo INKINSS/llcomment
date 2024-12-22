@@ -2,14 +2,14 @@ import { useForm } from "react-hook-form";
 import { submitForm } from "../../utils/submitForm";
 import { Editor } from "@toast-ui/react-editor";
 import { useEffect, useState, useRef } from "react";
-import { Input } from "@nextui-org/react";
+import { Input, useDisclosure } from "@nextui-org/react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "./styles.css";
 import { generateSlug } from "../../pages/posts/[slug].astro";
 import ModalSuccess from "../common/modal/ModalSuccess";
 
 const Form = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [postSlug, setPostSlug] = useState("");
 
   const {
@@ -36,7 +36,7 @@ const Form = () => {
     if (success) {
       const slug = generateSlug(data.title);
       setPostSlug(slug);
-      setModalVisible(true);
+      onOpen();
       reset();
       editorRef.current.getInstance().setMarkdown("");
     }
@@ -128,8 +128,8 @@ const Form = () => {
         />
       </form>
       <ModalSuccess
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
+        visible={isOpen}
+        onClose={onClose}
         onViewPost={handleViewPost}
         postSlug={postSlug}
       />
