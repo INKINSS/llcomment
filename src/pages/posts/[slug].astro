@@ -6,7 +6,6 @@ import "../../styles/global.css";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
 export const prerender = true;
 
-
 export const generateSlug = (title) => {
   return title
     .toLowerCase()
@@ -46,7 +45,9 @@ const contentHTML = marked(post.content);
 <!-- Renderizar el contenido del post -->
 <Layout title={`llcomment || ${post.title}`}>
   <article class="flex mt-16 flex-col items-center">
-    <h1 class="ssm:text-[1.8rem] text-center sm:text-[2rem] font-bold">{post.title}</h1>
+    <h1 class="ssm:text-[1.8rem] text-center sm:text-[2rem] font-bold">
+      {post.title}
+    </h1>
     <div class="space-x-2">
       <span class="font-semibold">{post.publishDate}</span>
       <span class="font-semibold">
@@ -54,7 +55,10 @@ const contentHTML = marked(post.content);
       </span>
     </div>
     <!-- Renderiza el contenido convertido a HTML -->
-    <div class="my-10 min-w-[60%] prose px-10 ssm:prose-sm md:prose-base" set:html={contentHTML}></div>
+    <div
+      class="my-10 min-w-[60%] prose px-10 ssm:prose-sm md:prose-base"
+      set:html={contentHTML}
+    />
     <BackDiscover />
   </article>
 
@@ -75,7 +79,7 @@ const contentHTML = marked(post.content);
       font-size: 1.2rem;
     }
 
-    .prose h1{
+    .prose h1 {
       margin: 15px 0;
     }
 
