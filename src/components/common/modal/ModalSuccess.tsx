@@ -10,7 +10,7 @@ import {
 
 const ModalSuccess = ({ visible, onClose, onViewPost, postSlug }) => {
   return (
-    <Modal backdrop='opaque' isOpen={visible} onOpenChange={onClose}>
+    <Modal isOpen={visible} onOpenChange={onClose}>
       <ModalContent>
         {(onClose) => (
           <>
