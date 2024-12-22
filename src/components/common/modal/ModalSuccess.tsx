@@ -22,34 +22,25 @@ const ModalSuccess: FC<ModalSuccessProps> = ({
   postSlug,
 }) => {
   return (
-    <Modal 
-      isOpen={visible} 
-      onClose={onClose}
-      placement="center"
-      hideCloseButton={false}
-      isDismissable={true}
-    >
+    <Modal isOpen={visible} onClose={onClose} placement="center">
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1" role="heading">
+            <ModalHeader className="flex flex-col gap-1">
               Publicación Exitosa
             </ModalHeader>
             <ModalBody>
               <p>¡Felicidades! Tu artículo ha sido publicado.</p>
             </ModalBody>
             <ModalFooter>
-              <Button 
-                onClick={() => onViewPost(postSlug)} 
+              <Button
+                onClick={() => onViewPost(postSlug)}
                 color="primary"
                 autoFocus
               >
                 Ver Publicación
               </Button>
-              <Button 
-                color="secondary" 
-                onClick={onClose}
-              >
+              <Button color="secondary" variant="light" onPress={onClose}>
                 Cerrar
               </Button>
             </ModalFooter>
