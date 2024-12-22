@@ -16,6 +16,7 @@
     "@astrojs/vercel": "^8.0.1",
     "@nextui-org/divider": "^2.0.32",
     "@nextui-org/input": "^2.2.5",
+    "@nextui-org/modal": "^2.2.5",
     "@nextui-org/navbar": "^2.0.37",
     "@nextui-org/react": "^2.4.8",
     "@toast-ui/editor": "^3.2.2",
