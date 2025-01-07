@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { PiBagSimpleBold } from "react-icons/pi";
+import { VscGithubAlt } from "react-icons/vsc";
+import { FaInstagram } from "react-icons/fa";
+---
+
+<Layout title="llcomment || contacto ">
+  <div class="flex flex-col mt-20 px-10 justify-center items-center">
+    <div class="flex flex-col items-center">
+      <h1 class="font-bold ssm:text-[1.5rem] md:text-[2rem]">
+        ¿Te gusta llcomment? ¡revisa otros proyectos!
+      </h1>
+      <p class="prose ssm:prose-sm md:prose-xl text-center">
+        Si te gusta llcomment, puedes revisar otros proyectos que he realizado
+        en mi portafolio, encontrarás clones de aplicaciones populares, diseños
+        hechos en figma y mucho más.
+      </p>
+    </div>
+    <section class="flex gap-5">
+      <a
+      target="_blank"
+      href="https://curriculum-eight-iota.vercel.app/"
+        class="flex justify-center items-center bg-primary border border-white text-white rounded-md mt-10 py-2 px-3 gap-2 hover:border-primary hover:bg-white hover:text-primary transform hover:scale-105 transition-all duration-200"
+      >
+        <PiBagSimpleBold />
+        <span class="inline-block">portfolio</span>
+      </a>
+      <a
+      target="_blank"
+      href="https://github.com/INKINSS"
+        class="flex justify-center items-center border border-white bg-primary text-white rounded-md mt-10 py-2 px-3 gap-2 hover:border-primary hover:bg-white hover:text-primary transform hover:scale-105 transition-all duration-200"
+      >
+        <VscGithubAlt />
+        <span class="inline-block">GitHub</span>
+      </a>
+      <a
+      target="_blank"
+      href="https://www.instagram.com/samuelperez_98/"
+        class="flex justify-center items-center bg-primary border border-white text-white rounded-md mt-10 py-2 px-3 gap-2 hover:border-primary hover:bg-white hover:text-primary transform hover:scale-105 transition-all duration-200"
+      >
+        <FaInstagram />
+        <span class="inline-block">Instagram</span>
+      </a>
+    </section>
+  </div></Layout
+>
