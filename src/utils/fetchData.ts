@@ -1,4 +1,4 @@
-import { getDatabase, ref, child, get } from "firebase/database";
+import { ref, child, get } from "firebase/database";
 import { database } from '../../firebaseConfig';
 
 export const fetchData = async (path: string) => {
@@ -6,13 +6,15 @@ export const fetchData = async (path: string) => {
   try {
     const snapshot = await get(child(dbRef, path));
     if (snapshot.exists()) {
-      return snapshot.val();
+      const data = snapshot.val();
+      // Asegurarse de que siempre devolvemos un array de posts
+      return Array.isArray(data) ? data : Object.values(data);
     } else {
       console.log("No data available");
-      return null;
+      return [];
     }
   } catch (error) {
     console.error("Error fetching data:", error);
-    return null;
+    return [];
   }
 };

@@ -38,13 +38,8 @@ const ItemsSearch = () => {
     const fetchPosts = async () => {
       setLoading(true);
       const result = await fetchData('posts');
-      if (result) {
-        // Convertir el objeto en un array
-        const postsArray = Object.keys(result).map((key) => ({
-          id: key,
-          ...result[key],
-        }));
-        setData(postsArray);
+      if (result && result.length > 0) {
+        setData(result); // Ya no necesitamos transformar el resultado
       }
       setLoading(false);
     };
