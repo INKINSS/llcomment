@@ -4,6 +4,7 @@ import { fetchData } from "../../utils/fetchData";
 import { marked } from "marked";
 import "../../styles/global.css";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
+import { getFallback } from "astro:transitions/client";
 
 export const generateSlug = (title) => {
   return title
@@ -22,8 +23,8 @@ export async function getStaticPaths() {
   const paths = data.map((post) => ({
     params: { slug: generateSlug(post.title) },
   }));
-
-  return paths;
+  console.log('rutas generadas por getStaticPath')
+  return { paths, fallback: getFallback() };
 }
 
 // Obtener el parámetro dinámico `id`
