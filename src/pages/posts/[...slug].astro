@@ -35,6 +35,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 
+
 if (!post) {
   throw new Error(`Post con ID ${slug} no encontrado.`);
 }
