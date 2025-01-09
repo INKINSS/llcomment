@@ -5,9 +5,10 @@ import { marked } from "marked";
 import "../../styles/global.css";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
 
+// Cambiar a false para habilitar rutas dinámicas
 export const prerender = false;
 
-export const generateSlug = (title) => {
+export const generateSlug = (title: string) => {
   return title
     .toLowerCase()
     .normalize("NFD")
@@ -15,34 +16,24 @@ export const generateSlug = (title) => {
     .replace(/[^\w-]+/g, "");
 };
 
-export async function getStaticPaths() {
-  const data = await fetchData("posts");
-  if (!Array.isArray(data)) {
-    throw new Error("La data de Firebase no es un array.");
-  }
-
-  const paths = data.map((post) => ({
-    params: { slug: generateSlug(post.title) },
-  }));
-  return paths;
-}
-
-// Obtener el parámetro dinámico `id`
+// Obtener el parámetro dinámico `slug`
 const { slug } = Astro.params;
 
 // Fetch de todos los posts
-const data = await fetchData("posts");
-const post = data.find((item) => generateSlug(item.title) === slug);
+const posts = await fetchData("posts");
 
+// Buscar el post que coincida con el slug
+const post = posts.find((item) => generateSlug(item.title) === slug);
+
+// Redireccionar a 404 si no se encuentra el post
 if (!post) {
-  throw new Error(`Post con ID ${slug} no encontrado.`);
+  return Astro.redirect("/404");
 }
 
 // Convierte el contenido de Markdown a HTML
 const contentHTML = marked(post.content);
 ---
 
-<!-- Renderizar el contenido del post -->
 <Layout title={`llcomment || ${post.title}`}>
   <article class="flex mt-16 flex-col items-center">
     <h1 class="ssm:text-[1.8rem] text-center sm:text-[2rem] font-bold">
@@ -54,7 +45,6 @@ const contentHTML = marked(post.content);
         {post.nickname}
       </span>
     </div>
-    <!-- Renderiza el contenido convertido a HTML -->
     <div
       class="my-10 min-w-[60%] prose px-10 ssm:prose-sm md:prose-base"
       set:html={contentHTML}
