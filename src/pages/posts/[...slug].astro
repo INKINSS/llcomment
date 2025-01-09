@@ -5,11 +5,7 @@ import { marked } from "marked";
 import "../../styles/global.css";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
 
-export const prerender = true;
-
-// Fetch de todos los posts
-const data = await fetchData("posts");
-const post = data.find((item) => generateSlug(item.title) === slug);
+export const prerender = false;
 
 export const generateSlug = (title) => {
   return title
@@ -34,7 +30,9 @@ export async function getStaticPaths() {
 // Obtener el parámetro dinámico `id`
 const { slug } = Astro.params;
 
-
+// Fetch de todos los posts
+const data = await fetchData("posts");
+const post = data.find((item) => generateSlug(item.title) === slug);
 
 if (!post) {
   throw new Error(`Post con ID ${slug} no encontrado.`);
