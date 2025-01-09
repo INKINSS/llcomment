@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { Input, useDisclosure } from "@nextui-org/react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "./styles.css";
-import { generateSlug } from "../../pages/posts/[slug].astro";
+import { generateSlug } from "../../pages/posts/[...slug].astro";
 import ModalSuccess from "../common/modal/ModalSuccess";
 
 const Form = () => {
