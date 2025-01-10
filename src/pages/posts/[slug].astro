@@ -3,16 +3,10 @@ import { fetchData } from "../../utils/fetchData";
 import { marked } from "marked";
 import Layout from "../../layouts/Layout.astro";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
+import { generateSlug } from "../../utils/generateSlug";
 
 // Función para generar slugs
-export const generateSlug = (title) => {
-  return title
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") // Elimina acentos
-    .replace(/ /g, "-") // Reemplaza espacios con guiones
-    .replace(/[^\w-]+/g, ""); // Elimina caracteres no alfanuméricos
-};
+
 
 // Generar rutas dinámicas en tiempo de compilación
 export async function getStaticPaths() {
@@ -28,7 +22,7 @@ const { slug } = Astro.params;
 
 // Recuperar todos los posts y encontrar el correspondiente
 const posts = await fetchData("posts");
-const post = posts.find((p) => generateSlug(p.title) === slug);
+const post = posts.find((post) => generateSlug(post.title) === slug);
 
 if (!post) {
   throw new Error(`Post con slug "${slug}" no encontrado.`);
