@@ -25,9 +25,10 @@ const ItemsSearch = () => {
     return title
       .toLowerCase()
       .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
       .replace(/ /g, '-')
       .replace(/[^\w-]+/g, '');
-  }
+  };
 
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -39,7 +40,7 @@ const ItemsSearch = () => {
       setLoading(true);
       const result = await fetchData('posts');
       if (result && result.length > 0) {
-        setData(result); // Ya no necesitamos transformar el resultado
+        setData(result);
       }
       setLoading(false);
     };
