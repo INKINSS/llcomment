@@ -5,29 +5,46 @@ import Layout from "../../layouts/Layout.astro";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
 import { generateSlug } from "../../utils/generateSlug";
 
-// Generar todas las rutas posibles en tiempo de compilación
-export async function getStaticPaths() {
-  try {
-    const posts = await fetchData("posts");
-    console.log(`Generating paths for ${posts.length} posts`);
-    
-    return posts.map((post) => {
-      const slug = generateSlug(post.title);
-      console.log(`Generating path for: ${slug}`);
-      return {
-        params: { slug },
-        props: { post },
-      };
-    });
-  } catch (error) {
-    console.error("Error generating paths:", error);
-    return [];
+// Marcar como no pre-renderizado para que se genere en el servidor
+export const prerender = false;
+
+// Obtener el parámetro dinámico
+const { slug } = Astro.params;
+console.log(`Procesando solicitud para slug: ${slug}`);
+
+let post;
+let contentHTML;
+
+try {
+  // Recuperar todos los posts
+  const posts = await fetchData("posts");
+  console.log(`Encontrados ${posts.length} posts totales`);
+  
+  if (!Array.isArray(posts)) {
+    console.error('Los posts no son un array:', posts);
+    return Astro.redirect("/404");
   }
+
+  // Buscar el post específico
+  post = posts.find((p) => {
+    const generatedSlug = generateSlug(p.title);
+    console.log(`Comparando ${generatedSlug} con ${slug}`);
+    return generatedSlug === slug;
+  });
+
+  if (!post) {
+    console.log(`No se encontró post para el slug: ${slug}`);
+    return Astro.redirect("/404");
+  }
+
+  console.log(`Post encontrado:`, post);
+  contentHTML = marked(post.content);
+} catch (error) {
+  console.error(`Error procesando post con slug ${slug}:`, error);
+  return Astro.redirect("/404");
 }
 
-// Obtener el post de las props
-const { post } = Astro.props;
-const contentHTML = marked(post.content);
+// Si llegamos aquí, tenemos un post válido
 ---
 
 <Layout title={`llcomment || ${post.title}`}>
