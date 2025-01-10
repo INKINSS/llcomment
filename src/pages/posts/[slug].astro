@@ -1,33 +1,37 @@
 ---
-import Layout from "../../layouts/Layout.astro";
 import { fetchData } from "../../utils/fetchData";
 import { marked } from "marked";
-import "../../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
 
-// Cambiar a false para habilitar rutas dinámicas
-export const prerender = false;
-
-export const generateSlug = (title: string) => {
+// Función para generar slugs
+export const generateSlug = (title) => {
   return title
     .toLowerCase()
     .normalize("NFD")
-    .replace(/ /g, "-")
-    .replace(/[^\w-]+/g, "");
+    .replace(/[\u0300-\u036f]/g, "") // Elimina acentos
+    .replace(/ /g, "-") // Reemplaza espacios con guiones
+    .replace(/[^\w-]+/g, ""); // Elimina caracteres no alfanuméricos
 };
 
-// Obtener el parámetro dinámico `slug`
+// Generar rutas dinámicas en tiempo de compilación
+export async function getStaticPaths() {
+  const posts = await fetchData("posts");
+  const paths = posts.map((post) => ({
+    params: { slug: generateSlug(post.title) },
+  }));
+  return paths;
+}
+
+// Obtener el parámetro dinámico
 const { slug } = Astro.params;
 
-// Fetch de todos los posts
+// Recuperar todos los posts y encontrar el correspondiente
 const posts = await fetchData("posts");
+const post = posts.find((p) => generateSlug(p.title) === slug);
 
-// Buscar el post que coincida con el slug
-const post = posts.find((item) => generateSlug(item.title) === slug);
-
-// Redireccionar a 404 si no se encuentra el post
 if (!post) {
-  return Astro.redirect("/404");
+  throw new Error(`Post con slug "${slug}" no encontrado.`);
 }
 
 // Convierte el contenido de Markdown a HTML
@@ -51,30 +55,4 @@ const contentHTML = marked(post.content);
     />
     <BackDiscover />
   </article>
-
-  <style is:global>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "League Spartan", sans-serif;
-    }
-
-    .prose p {
-      font-size: 1.2rem;
-      margin: 10px 0;
-    }
-
-    .prose li {
-      font-size: 1.2rem;
-    }
-
-    .prose h1 {
-      margin: 15px 0;
-    }
-
-    .prose h2 {
-      margin: 5px 0;
-    }
-  </style>
 </Layout>
