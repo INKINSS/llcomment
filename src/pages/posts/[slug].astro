@@ -5,33 +5,29 @@ import Layout from "../../layouts/Layout.astro";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
 import { generateSlug } from "../../utils/generateSlug";
 
-// Obtener el parámetro dinámico
-const { slug } = Astro.params;
-console.log(`Processing request for slug: ${slug}`);
-
-let post;
-let contentHTML;
-
-try {
-  // Recuperar todos los posts y encontrar el correspondiente
-  const posts = await fetchData("posts");
-  console.log(`Found ${posts.length} total posts`);
-  
-  post = posts.find((p) => generateSlug(p.title) === slug);
-  
-  if (!post) {
-    console.log(`No post found for slug: ${slug}`);
-    return Astro.redirect("/404");
+// Generar todas las rutas posibles en tiempo de compilación
+export async function getStaticPaths() {
+  try {
+    const posts = await fetchData("posts");
+    console.log(`Generating paths for ${posts.length} posts`);
+    
+    return posts.map((post) => {
+      const slug = generateSlug(post.title);
+      console.log(`Generating path for: ${slug}`);
+      return {
+        params: { slug },
+        props: { post },
+      };
+    });
+  } catch (error) {
+    console.error("Error generating paths:", error);
+    return [];
   }
-  
-  console.log(`Found post with title: ${post.title}`);
-  // Convierte el contenido de Markdown a HTML
-  contentHTML = marked(post.content);
-} catch (error) {
-  console.error(`Error processing post with slug ${slug}:`, error);
-  return Astro.redirect("/404");
 }
 
+// Obtener el post de las props
+const { post } = Astro.props;
+const contentHTML = marked(post.content);
 ---
 
 <Layout title={`llcomment || ${post.title}`}>
