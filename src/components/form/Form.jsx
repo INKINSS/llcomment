@@ -5,8 +5,8 @@ import { useEffect, useState, useRef } from "react";
 import { Input, useDisclosure } from "@nextui-org/react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "./styles.css";
-import { generateSlug } from "../../pages/posts/[...slug].astro";
 import ModalSuccess from "../common/modal/ModalSuccess";
+import { generateSlug } from "../../utils/generateSlug";
 
 const Form = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
