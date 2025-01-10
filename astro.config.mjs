@@ -7,7 +7,7 @@ import vercel from '@astrojs/vercel'
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'hybrid',
+  output: 'server',
   adapter: vercel(),
   devToolbar: {enabled: false},
   integrations: [tailwind(), react()],
@@ -15,5 +15,4 @@ export default defineConfig({
     host: true,
     port: 4321,
   },
-}
-);
+})

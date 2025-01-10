@@ -5,18 +5,6 @@ import Layout from "../../layouts/Layout.astro";
 import { BackDiscover } from "../../components/common/buttons/BackDiscover";
 import { generateSlug } from "../../utils/generateSlug";
 
-// Función para generar slugs
-
-
-// Generar rutas dinámicas en tiempo de compilación
-export async function getStaticPaths() {
-  const posts = await fetchData("posts");
-  const paths = posts.map((post) => ({
-    params: { slug: generateSlug(post.title) },
-  }));
-  return paths;
-}
-
 // Obtener el parámetro dinámico
 const { slug } = Astro.params;
 
@@ -25,7 +13,7 @@ const posts = await fetchData("posts");
 const post = posts.find((post) => generateSlug(post.title) === slug);
 
 if (!post) {
-  throw new Error(`Post con slug "${slug}" no encontrado.`);
+  return Astro.redirect("/404");
 }
 
 // Convierte el contenido de Markdown a HTML
@@ -49,4 +37,12 @@ const contentHTML = marked(post.content);
     />
     <BackDiscover />
   </article>
+  <style is:global>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "League Spartan", sans-serif;
+    }
+  </style>
 </Layout>
