@@ -7,17 +7,31 @@ import { generateSlug } from "../../utils/generateSlug";
 
 // Obtener el parámetro dinámico
 const { slug } = Astro.params;
+console.log(`Processing request for slug: ${slug}`);
 
-// Recuperar todos los posts y encontrar el correspondiente
-const posts = await fetchData("posts");
-const post = posts.find((post) => generateSlug(post.title) === slug);
+let post;
+let contentHTML;
 
-if (!post) {
+try {
+  // Recuperar todos los posts y encontrar el correspondiente
+  const posts = await fetchData("posts");
+  console.log(`Found ${posts.length} total posts`);
+  
+  post = posts.find((p) => generateSlug(p.title) === slug);
+  
+  if (!post) {
+    console.log(`No post found for slug: ${slug}`);
+    return Astro.redirect("/404");
+  }
+  
+  console.log(`Found post with title: ${post.title}`);
+  // Convierte el contenido de Markdown a HTML
+  contentHTML = marked(post.content);
+} catch (error) {
+  console.error(`Error processing post with slug ${slug}:`, error);
   return Astro.redirect("/404");
 }
 
-// Convierte el contenido de Markdown a HTML
-const contentHTML = marked(post.content);
 ---
 
 <Layout title={`llcomment || ${post.title}`}>
